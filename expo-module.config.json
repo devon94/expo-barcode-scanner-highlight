@@ -1,0 +1,17 @@
+{
+  "platforms": [
+    "apple",
+    "android",
+    "web"
+  ],
+  "apple": {
+    "modules": [
+      "ExpoBarcodeScannerHighlightModule"
+    ]
+  },
+  "android": {
+    "modules": [
+      "expo.modules.barcodescannerhighlight.ExpoBarcodeScannerHighlightModule"
+    ]
+  }
+}

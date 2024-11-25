@@ -1,0 +1,10 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": true,
+    "paths": {
+      "expo-barcode-scanner-highlight": ["../src/index"],
+      "expo-barcode-scanner-highlight/*": ["../src/*"]
+    }
+  }
+}
