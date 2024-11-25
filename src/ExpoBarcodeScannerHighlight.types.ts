@@ -1,19 +1,11 @@
-import type { StyleProp, ViewStyle } from 'react-native';
+import type { StyleProp, ViewStyle } from "react-native";
 
-export type OnLoadEventPayload = {
-  url: string;
-};
-
-export type ExpoBarcodeScannerHighlightModuleEvents = {
-  onChange: (params: ChangeEventPayload) => void;
-};
-
-export type ChangeEventPayload = {
+export type OnBarcodeTappedPayload = {
   value: string;
 };
+export type ExpoBarcodeScannerHighlightModuleEvents = {};
 
 export type ExpoBarcodeScannerHighlightViewProps = {
-  url: string;
-  onLoad: (event: { nativeEvent: OnLoadEventPayload }) => void;
+  onBarcodeTapped: (event: { nativeEvent: OnBarcodeTappedPayload }) => void;
   style?: StyleProp<ViewStyle>;
 };

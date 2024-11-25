@@ -1,38 +1,38 @@
 import ExpoModulesCore
-import WebKit
+import SwiftUI
+import UIKit
 
-// This view will be used as a native component. Make sure to inherit from `ExpoView`
-// to apply the proper styling (e.g. border radius and shadows).
 class ExpoBarcodeScannerHighlightView: ExpoView {
-  let webView = WKWebView()
-  let onLoad = EventDispatcher()
-  var delegate: WebViewDelegate?
-
-  required init(appContext: AppContext? = nil) {
-    super.init(appContext: appContext)
-    clipsToBounds = true
-    delegate = WebViewDelegate { url in
-      self.onLoad(["url": url])
+    let onBarcodeDetected = EventDispatcher()
+    let onBarcodeTapped = EventDispatcher()
+    var cameraViewWithOverlay = CameraViewWithOverlay()
+    
+    required init(appContext: AppContext? = nil) {        
+        // Call super.init
+        super.init(appContext: appContext)
+        
+        // Now we can set up the real event handlers
+        cameraViewWithOverlay.setOnBarcodeDetected({ [weak self] barcode in
+            self?.onBarcodeDetected(["payload": barcode.payload])
+        })
+        
+        cameraViewWithOverlay.setOnBarcodeTapped({ [weak self] barcode in
+            print("Barcode tapped")
+            print("self?.onBarcodeTapped exists: \(self?.onBarcodeTapped != nil)")
+            self?.onBarcodeTapped(["payload": barcode.payload])
+        })
+        
+        let hostingController = UIHostingController(rootView: cameraViewWithOverlay)
+        hostingController.view.backgroundColor = UIColor.clear
+        
+        addSubview(hostingController.view)
+        hostingController.view.frame = bounds
+        
+        hostingController.view.autoresizingMask = [UIView.AutoresizingMask.flexibleWidth, UIView.AutoresizingMask.flexibleHeight]
     }
-    webView.navigationDelegate = delegate
-    addSubview(webView)
-  }
-
-  override func layoutSubviews() {
-    webView.frame = bounds
-  }
-}
-
-class WebViewDelegate: NSObject, WKNavigationDelegate {
-  let onUrlChange: (String) -> Void
-
-  init(onUrlChange: @escaping (String) -> Void) {
-    self.onUrlChange = onUrlChange
-  }
-
-  func webView(_ webView: WKWebView, didFinish navigation: WKNavigation) {
-    if let url = webView.url {
-      onUrlChange(url.absoluteString)
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        subviews.forEach { $0.frame = bounds }
     }
-  }
 }

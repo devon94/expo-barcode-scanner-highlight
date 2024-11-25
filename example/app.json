@@ -14,7 +14,10 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "expo.modules.barcodescannerhighlight.example"
+      "bundleIdentifier": "expo.modules.barcodescannerhighlight.example",
+      "infoPlist": {
+        "NSCameraUsageDescription": "This app needs camera access to scan barcodes"
+      }
     },
     "android": {
       "adaptiveIcon": {
