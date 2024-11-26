@@ -26,7 +26,7 @@ extension DetectedBarcode {
                 "width": boundingBox.size.width,
                 "height": boundingBox.size.height
             ],
-            "payload": payload
+            "barcode": payload
         ]
     }
 }

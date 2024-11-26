@@ -15,25 +15,43 @@ public class ScannerViewModel: NSObject, ObservableObject {
     private var lastSeenTimestamps: [String: Date] = [:]
     private let staleThreshold: TimeInterval = 0.5
     private var clearTextTimer: Timer?
-    private let videoDataOutputQueue = DispatchQueue(label: "VideoDataOutput", qos: .userInitiated)
+    private let videoDataOutputQueue = DispatchQueue(
+        label: "VideoDataOutput", qos: .userInitiated)
     private var onBarcodesDetected: (([String: Any]) -> Void)?
     private var previousBoundingBoxes: [String: CGRect] = [:]
+    private var onBarcodeTappedCallback: ((DetectedBarcode) -> Void)?
 
     @Published var isAuthorized = false
     @Published var isSessionReady = false
     @Published var scannedText = ""
     @Published var isScanning = true
     @Published var detectedBarcodesDict: [String: DetectedBarcode] = [:]
-    @Published var smoothingFactor: CGFloat = 0.1 // Adjust this value between 0 and 1
+    @Published var showHighlight: Bool = true
+    @Published var lerpingSmoothingFactor: CGFloat = 0.3 {
+        didSet {
+            // This will trigger updates when the smoothing factor changes
+            objectWillChange.send()
+        }
+    }
 
     override init() {
         super.init()
+    }
+
+    public func setOnBarcodeTapped(
+        _ callback: @escaping (DetectedBarcode) -> Void
+    ) {
+        onBarcodeTappedCallback = callback
     }
 
     public func setonBarcodesDetected(
         _ onBarcodesDetected: (([String: Any]) -> Void)?
     ) {
         self.onBarcodesDetected = onBarcodesDetected
+    }
+
+    public func setLerpingSmoothingFactor(_ lerpingSmoothingFactor: CGFloat) {
+        self.lerpingSmoothingFactor = lerpingSmoothingFactor
     }
 
     private func cleanStaleBoxes(currentTime: Date) {
@@ -74,6 +92,20 @@ public class ScannerViewModel: NSObject, ObservableObject {
             return
         }
 
+        // Configure initial focus settings
+        do {
+            try videoDevice.lockForConfiguration()
+            if videoDevice.isFocusModeSupported(.continuousAutoFocus) {
+                videoDevice.focusMode = .continuousAutoFocus
+            }
+            if videoDevice.isExposureModeSupported(.continuousAutoExposure) {
+                videoDevice.exposureMode = .continuousAutoExposure
+            }
+            videoDevice.unlockForConfiguration()
+        } catch {
+            print("Error configuring device: \(error.localizedDescription)")
+        }
+
         session.addInput(videoDeviceInput)
 
         let videoDataOutput = AVCaptureVideoDataOutput()
@@ -95,9 +127,10 @@ public class ScannerViewModel: NSObject, ObservableObject {
         }
     }
 
-    func onBarcodeTappedInternal(_ barcode: DetectedBarcode) {
-        if enableDebugging {
-            DispatchQueue.main.async {
+    func onBarcodeTapped(_ barcode: DetectedBarcode) {
+        DispatchQueue.main.async {
+            self.onBarcodeTappedCallback?(barcode)
+            if self.enableDebugging {
                 self.scannedText = barcode.payload
                 self.clearTextTimer?.invalidate()
                 self.clearTextTimer = Timer.scheduledTimer(
@@ -106,17 +139,24 @@ public class ScannerViewModel: NSObject, ObservableObject {
                     self?.scannedText = ""
                 }
             }
+
         }
     }
 
-    private func smoothBoundingBox(_ newBox: CGRect, previousBox: CGRect?) -> CGRect {
+    private func smoothBoundingBox(_ newBox: CGRect, previousBox: CGRect?)
+        -> CGRect
+    {
         guard let previous = previousBox else { return newBox }
-        
+
         return CGRect(
-            x: previous.origin.x + (newBox.origin.x - previous.origin.x) * smoothingFactor,
-            y: previous.origin.y + (newBox.origin.y - previous.origin.y) * smoothingFactor,
-            width: previous.width + (newBox.width - previous.width) * smoothingFactor,
-            height: previous.height + (newBox.height - previous.height) * smoothingFactor
+            x: previous.origin.x + (newBox.origin.x - previous.origin.x)
+                * lerpingSmoothingFactor,
+            y: previous.origin.y + (newBox.origin.y - previous.origin.y)
+                * lerpingSmoothingFactor,
+            width: previous.width + (newBox.width - previous.width)
+                * lerpingSmoothingFactor,
+            height: previous.height + (newBox.height - previous.height)
+                * lerpingSmoothingFactor
         )
     }
 }
@@ -141,30 +181,33 @@ extension ScannerViewModel: AVCaptureVideoDataOutputSampleBufferDelegate {
                     for observation in observations {
                         if let payload = observation.payloadStringValue {
                             self?.lastSeenTimestamps[payload] = currentTime
-                            
+
                             // Get the smoothed bounding box
                             let newBox = observation.boundingBox
-                            let smoothedBox = self?.smoothBoundingBox(
-                                newBox,
-                                previousBox: self?.previousBoundingBoxes[payload]
-                            ) ?? newBox
-                            
+                            let smoothedBox =
+                                self?.smoothBoundingBox(
+                                    newBox,
+                                    previousBox: self?.previousBoundingBoxes[
+                                        payload]
+                                ) ?? newBox
+
                             // Update the previous box for next frame
                             self?.previousBoundingBoxes[payload] = smoothedBox
-                            
+
                             // Update or create the detected barcode
                             if self?.detectedBarcodesDict[payload] != nil {
-                                self?.detectedBarcodesDict[payload]?.boundingBox = smoothedBox
+                                self?.detectedBarcodesDict[payload]?
+                                    .boundingBox = smoothedBox
                             } else {
-                                self?.detectedBarcodesDict[payload] = DetectedBarcode(
-                                    id: payload,
-                                    boundingBox: smoothedBox,
-                                    payload: payload
-                                )
+                                self?.detectedBarcodesDict[payload] =
+                                    DetectedBarcode(
+                                        id: payload,
+                                        boundingBox: smoothedBox,
+                                        payload: payload
+                                    )
                             }
                         }
                     }
-                      
 
                     if (self?.enableDebugging) != nil
                         && self?.enableDebugging == true

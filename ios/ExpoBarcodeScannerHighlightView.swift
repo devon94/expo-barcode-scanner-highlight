@@ -5,36 +5,41 @@ import UIKit
 class ExpoBarcodeScannerHighlightView: ExpoView {
     let onBarcodesDetected = EventDispatcher()
     let onBarcodeTapped = EventDispatcher()
-    var cameraViewWithOverlay = CameraViewWithOverlay()
-
-    var showHighlight: Bool = true {
-        didSet {
-            cameraViewWithOverlay.setShowHighlight(showHighlight)
-        }
-    }
+    private var hostingController: UIHostingController<CameraViewWithOverlay>?
+    private var scannerViewModel = ScannerViewModel()
     
-    required init(appContext: AppContext? = nil) {        
-        // Call super.init
+    required init(appContext: AppContext? = nil) {
         super.init(appContext: appContext)
         
-        // Now we can set up the real event handlers
-        cameraViewWithOverlay.setonBarcodesDetected({ [weak self] barcodes in
+        let cameraViewWithOverlay = CameraViewWithOverlay(scannerViewModel: scannerViewModel)
+        scannerViewModel.setonBarcodesDetected({ [weak self] barcodes in
             self?.onBarcodesDetected(barcodes)
         })
         
-        cameraViewWithOverlay.setOnBarcodeTapped({ [weak self] barcode in
-            print("Barcode tapped")
-            print("self?.onBarcodeTapped exists: \(self?.onBarcodeTapped != nil)")
-            self?.onBarcodeTapped(["payload": barcode.payload])
+        scannerViewModel.setOnBarcodeTapped({ [weak self] barcode in
+            self?.onBarcodeTapped(["barcode": barcode.payload])
         })
         
-        let hostingController = UIHostingController(rootView: cameraViewWithOverlay)
-        hostingController.view.backgroundColor = UIColor.clear
+        hostingController = UIHostingController(rootView: cameraViewWithOverlay)
+        hostingController?.view.backgroundColor = UIColor.clear
         
-        addSubview(hostingController.view)
-        hostingController.view.frame = bounds
-        
-        hostingController.view.autoresizingMask = [UIView.AutoresizingMask.flexibleWidth, UIView.AutoresizingMask.flexibleHeight]
+        if let hostingView = hostingController?.view {
+            addSubview(hostingView)
+            hostingView.frame = bounds
+            hostingView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        }
+    }
+    
+    var showHighlight: Bool = true {
+        didSet {
+            scannerViewModel.showHighlight = showHighlight
+        }
+    }
+    
+    var lerpingSmoothingFactor: CGFloat = 0.3 {
+        didSet {
+            scannerViewModel.lerpingSmoothingFactor = lerpingSmoothingFactor
+        }
     }
     
     override func layoutSubviews() {

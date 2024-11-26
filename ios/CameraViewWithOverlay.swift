@@ -11,26 +11,12 @@ import AVFoundation
 import Vision
 
 public struct CameraViewWithOverlay: View {
-    @StateObject private var scannerViewModel = ScannerViewModel()
+    @ObservedObject var scannerViewModel: ScannerViewModel
     @State private var showHighlight: Bool = true
-    var onBarcodeTapped: ((DetectedBarcode) -> Void)?
-    var onBarcodesDetected: (([String: Any]) -> Void)?
 
-    public init() { }
-    
-    public mutating func setonBarcodesDetected(_ onBarcodesDetected: (([String: Any]) -> Void)?) {
-        self.onBarcodesDetected = onBarcodesDetected
+    public init(scannerViewModel: ScannerViewModel) {
+        self.scannerViewModel = scannerViewModel
     }
-    
-    public mutating func setOnBarcodeTapped(_ onBarcodeTapped: ((DetectedBarcode) -> Void)?) {
-        self.onBarcodeTapped = onBarcodeTapped
-    }
-
-    public mutating func setShowHighlight(_ showHighlight: Bool) {
-        self.showHighlight = showHighlight
-    }
-
-
 
     public var body: some View {
         ZStack {
@@ -41,8 +27,7 @@ public struct CameraViewWithOverlay: View {
                 BarcodeOverlayView(
                     detectedBarcodesDict: scannerViewModel.detectedBarcodesDict,
                     onBarcodeTapped: { barcode in
-                        scannerViewModel.onBarcodeTappedInternal(barcode)
-                        onBarcodeTapped?(barcode)
+                        scannerViewModel.onBarcodeTapped(barcode)
                     }
                 )
                 .edgesIgnoringSafeArea(.all)
@@ -64,9 +49,7 @@ public struct CameraViewWithOverlay: View {
             }
         }
         .onAppear {
-            scannerViewModel.setonBarcodesDetected(onBarcodesDetected)
             scannerViewModel.requestCameraAccess()
         }
-
     }
 }

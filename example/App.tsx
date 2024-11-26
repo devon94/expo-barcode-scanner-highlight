@@ -2,9 +2,9 @@ import { ExpoBarcodeScannerHighlightView } from 'expo-barcode-scanner-highlight'
 import { StyleSheet, View, Text, Platform } from 'react-native'
 import { BlurView } from 'expo-blur'
 import { useState, useEffect } from 'react'
-import Animated, { 
-  withTiming, 
-  useAnimatedStyle, 
+import Animated, {
+  withTiming,
+  useAnimatedStyle,
   useSharedValue,
   withSequence
 } from 'react-native-reanimated'
@@ -21,14 +21,12 @@ export default function App() {
 
   useEffect(() => {
     if (scannedBarcode) {
-      // Animate in
       opacity.value = withSequence(
         withTiming(1, { duration: 300 }),
         withTiming(1, { duration: 2400 }),
         withTiming(0, { duration: 300 })
       )
 
-      // Clear the barcode after 3 seconds
       const timer = setTimeout(() => {
         setScannedBarcode('')
       }, 3000)
@@ -37,13 +35,14 @@ export default function App() {
     }
   }, [scannedBarcode])
 
-  const onBarcodeTapped = (event: { nativeEvent: { value: string } }) => {
-    setScannedBarcode(event.nativeEvent.value)
+  const onBarcodeTapped = (event: { nativeEvent: { barcode: string } }) => {
+    setScannedBarcode(event.nativeEvent.barcode)
     console.log('Barcode tapped:', event.nativeEvent)
   }
 
-  const onBarcodesDetected = (event: { nativeEvent: { barcodes: any } }) => {
-    console.log('Barcodes detected:', event.nativeEvent)
+  // unused but can be used to get all detected barcodes
+  const onBarcodesDetected = (_event: { nativeEvent: { barcodes: any } }) => {
+    // console.log('Barcodes detected:', event.nativeEvent)
   }
 
   return (
@@ -54,7 +53,7 @@ export default function App() {
         onBarcodeTapped={onBarcodeTapped}
         showHighlight={true}
       />
-      
+
       {scannedBarcode !== '' && (
         <Animated.View style={[styles.toastContainer, animatedStyle]}>
           <BlurView intensity={70} tint="dark" style={styles.blurView}>
@@ -82,6 +81,7 @@ const styles = StyleSheet.create({
     right: 20,
     alignItems: 'center',
     justifyContent: 'center',
+    zIndex: 9999,
   },
   blurView: {
     padding: 16,

@@ -10,6 +10,7 @@ import AVFoundation
 import Vision
 
 public struct BarcodeOverlayView: View {
+    private var enableDebugging: Bool = false
     let detectedBarcodesDict: Dictionary<String, DetectedBarcode>
     let onBarcodeTapped: (DetectedBarcode) -> Void
     
@@ -18,7 +19,9 @@ public struct BarcodeOverlayView: View {
             ZStack {
                 ForEach(Array(detectedBarcodesDict), id: \.key) { key, barcode in
                     Button(action: {
-                        print("Button tapped for barcode: \(barcode.payload)")
+                        if enableDebugging {
+                            print("Button tapped for barcode: \(barcode.payload)")
+                        }
                         onBarcodeTapped(barcode)
                     }) {
                         BarcodeBoxView(barcode: barcode, geometry: geometry)
@@ -26,7 +29,9 @@ public struct BarcodeOverlayView: View {
                     }
                     .buttonStyle(PlainButtonStyle())
                     .onTapGesture {
-                        print("Tap gesture triggered for barcode: \(barcode.payload)")
+                        if enableDebugging {
+                            print("Tap gesture triggered for barcode: \(barcode.payload)")
+                        }
                     }
                 }
             }
