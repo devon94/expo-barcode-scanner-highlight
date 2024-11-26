@@ -9,11 +9,11 @@ import AVFoundation
 import SwiftUI
 import Vision
 
-struct BarcodeBoxHitAreaView: View {
+struct BarcodeBoxesView: View {
     let geometry: GeometryProxy
     let barcodes: [(key: String, value: DetectedBarcode)]
     let onTap: (DetectedBarcode) -> Void
-    let enableDebugging: Bool = true
+    let enableDebugging: Bool = false
 
     func getRect(for barcode: DetectedBarcode) -> CGRect {
         let baseRect = CGRect(

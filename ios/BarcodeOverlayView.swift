@@ -25,7 +25,7 @@ public struct BarcodeOverlayView: View {
     public var body: some View {
         GeometryReader { geometry in
             ZStack {
-                BarcodeBoxHitAreaView(
+                BarcodeBoxesView(
                     geometry: geometry,
                     barcodes: Array(detectedBarcodesDict),
                     onTap: onBarcodeTapped
