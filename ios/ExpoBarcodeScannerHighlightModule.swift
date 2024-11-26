@@ -5,7 +5,12 @@ public class ExpoBarcodeScannerHighlightModule: Module {
     Name("ExpoBarcodeScannerHighlight")
 
     View(ExpoBarcodeScannerHighlightView.self) {
-        Events("onBarcodeDetected", "onBarcodeTapped")
+        Events("onBarcodesDetected", "onBarcodeTapped")
+        
+    }
+
+    Prop("showHighlight") { (view: ExpoBarcodeScannerHighlightView, showHighlight: Bool?) in
+      view.showHighlight = showHighlight ?? true
     }
   }
 }

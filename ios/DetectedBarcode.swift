@@ -14,3 +14,19 @@ public struct DetectedBarcode: Identifiable {
     var boundingBox: CGRect
     let payload: String
 }
+
+
+extension DetectedBarcode {
+    var dictionary: [String: Any] {
+        return [
+            "id": id,
+            "boundingBox": [
+                "x": boundingBox.origin.x,
+                "y": boundingBox.origin.y,
+                "width": boundingBox.size.width,
+                "height": boundingBox.size.height
+            ],
+            "payload": payload
+        ]
+    }
+}

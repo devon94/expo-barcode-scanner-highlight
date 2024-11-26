@@ -7,5 +7,7 @@ export type ExpoBarcodeScannerHighlightModuleEvents = {};
 
 export type ExpoBarcodeScannerHighlightViewProps = {
   onBarcodeTapped: (event: { nativeEvent: OnBarcodeTappedPayload }) => void;
+  onBarcodesDetected: (event: { nativeEvent: { barcodes: string[] } }) => void;
   style?: StyleProp<ViewStyle>;
+  showHighlight?: boolean;
 };

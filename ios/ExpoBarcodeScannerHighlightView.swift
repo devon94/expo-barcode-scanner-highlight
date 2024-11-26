@@ -3,17 +3,23 @@ import SwiftUI
 import UIKit
 
 class ExpoBarcodeScannerHighlightView: ExpoView {
-    let onBarcodeDetected = EventDispatcher()
+    let onBarcodesDetected = EventDispatcher()
     let onBarcodeTapped = EventDispatcher()
     var cameraViewWithOverlay = CameraViewWithOverlay()
+
+    var showHighlight: Bool = true {
+        didSet {
+            cameraViewWithOverlay.setShowHighlight(showHighlight)
+        }
+    }
     
     required init(appContext: AppContext? = nil) {        
         // Call super.init
         super.init(appContext: appContext)
         
         // Now we can set up the real event handlers
-        cameraViewWithOverlay.setOnBarcodeDetected({ [weak self] barcode in
-            self?.onBarcodeDetected(["payload": barcode.payload])
+        cameraViewWithOverlay.setonBarcodesDetected({ [weak self] barcodes in
+            self?.onBarcodesDetected(barcodes)
         })
         
         cameraViewWithOverlay.setOnBarcodeTapped({ [weak self] barcode in

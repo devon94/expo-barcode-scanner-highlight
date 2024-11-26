@@ -10,16 +10,16 @@ import AVFoundation
 import Vision
 
 public struct BarcodeOverlayView: View {
-    let detectedBarcodes: [DetectedBarcode]
-    let onBarcodeTap: (DetectedBarcode) -> Void
+    let detectedBarcodesDict: Dictionary<String, DetectedBarcode>
+    let onBarcodeTapped: (DetectedBarcode) -> Void
     
     public var body: some View {
         GeometryReader { geometry in
             ZStack {
-                ForEach(detectedBarcodes) { barcode in
+                ForEach(Array(detectedBarcodesDict), id: \.key) { key, barcode in
                     Button(action: {
                         print("Button tapped for barcode: \(barcode.payload)")
-                        onBarcodeTap(barcode)
+                        onBarcodeTapped(barcode)
                     }) {
                         BarcodeBoxView(barcode: barcode, geometry: geometry)
                             .contentShape(Rectangle()) // Forces hit testing on entire area

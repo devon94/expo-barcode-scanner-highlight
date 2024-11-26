@@ -21,7 +21,7 @@ public struct BarcodeBoxView: View {
             height: barcode.boundingBox.height * geometry.size.height
         )
         
-        let paddedRect = baseRect.insetBy(dx: -16, dy: -16)
+        let paddedRect = baseRect.insetBy(dx: -24, dy: -24)
         
         ZStack {
             RoundedRectangle(cornerRadius: 8)

@@ -12,29 +12,36 @@ import Vision
 
 public struct CameraViewWithOverlay: View {
     @StateObject private var scannerViewModel = ScannerViewModel()
-    var onBarcodeDetected: ((DetectedBarcode) -> Void)?
+    @State private var showHighlight: Bool = true
     var onBarcodeTapped: ((DetectedBarcode) -> Void)?
-    
+    var onBarcodesDetected: (([String: Any]) -> Void)?
+
     public init() { }
     
-    public mutating func setOnBarcodeDetected(_ onBarcodeDetected: ((DetectedBarcode) -> Void)?) {
-        self.onBarcodeDetected = onBarcodeDetected
+    public mutating func setonBarcodesDetected(_ onBarcodesDetected: (([String: Any]) -> Void)?) {
+        self.onBarcodesDetected = onBarcodesDetected
     }
     
     public mutating func setOnBarcodeTapped(_ onBarcodeTapped: ((DetectedBarcode) -> Void)?) {
         self.onBarcodeTapped = onBarcodeTapped
     }
 
+    public mutating func setShowHighlight(_ showHighlight: Bool) {
+        self.showHighlight = showHighlight
+    }
+
+
+
     public var body: some View {
         ZStack {
             CameraView(scannerViewModel: scannerViewModel)
                 .edgesIgnoringSafeArea(.all)
             
-            if !scannerViewModel.detectedBarcodes.isEmpty {
+            if !scannerViewModel.detectedBarcodesDict.isEmpty && showHighlight {
                 BarcodeOverlayView(
-                    detectedBarcodes: scannerViewModel.detectedBarcodes,
-                    onBarcodeTap: { barcode in
-                        scannerViewModel.handleBarcodeTap(barcode)
+                    detectedBarcodesDict: scannerViewModel.detectedBarcodesDict,
+                    onBarcodeTapped: { barcode in
+                        scannerViewModel.onBarcodeTappedInternal(barcode)
                         onBarcodeTapped?(barcode)
                     }
                 )
@@ -57,6 +64,7 @@ public struct CameraViewWithOverlay: View {
             }
         }
         .onAppear {
+            scannerViewModel.setonBarcodesDetected(onBarcodesDetected)
             scannerViewModel.requestCameraAccess()
         }
 
