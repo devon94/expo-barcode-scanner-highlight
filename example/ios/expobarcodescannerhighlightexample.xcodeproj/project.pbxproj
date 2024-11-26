@@ -11,11 +11,11 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */; };
-		8CDCBE04795AF172DC9F3955 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 156D869AEB34263A296E86B5 /* PrivacyInfo.xcprivacy */; };
+		9645FF5A56024501B949464D /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7D8B9E7A214DD58695767E /* noop-file.swift */; };
 		96905EF65AED1B983A6B3ABC /* libPods-expobarcodescannerhighlightexample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 58EEBF8E8E6FB1BC6CAF49B5 /* libPods-expobarcodescannerhighlightexample.a */; };
+		A59298B4751C8B26606B51F8 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = EA105D05B3784356630CADA2 /* PrivacyInfo.xcprivacy */; };
 		B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
-		EB48CC73620042EF90664A4D /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF23272F1179402AB4B06BF1 /* noop-file.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,14 +25,14 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = expobarcodescannerhighlightexample/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = expobarcodescannerhighlightexample/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = expobarcodescannerhighlightexample/main.m; sourceTree = "<group>"; };
-		156D869AEB34263A296E86B5 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = expobarcodescannerhighlightexample/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		1E7D8B9E7A214DD58695767E /* noop-file.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = "noop-file.swift"; path = "expobarcodescannerhighlightexample/noop-file.swift"; sourceTree = "<group>"; };
 		58EEBF8E8E6FB1BC6CAF49B5 /* libPods-expobarcodescannerhighlightexample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-expobarcodescannerhighlightexample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C2E3173556A471DD304B334 /* Pods-expobarcodescannerhighlightexample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-expobarcodescannerhighlightexample.debug.xcconfig"; path = "Target Support Files/Pods-expobarcodescannerhighlightexample/Pods-expobarcodescannerhighlightexample.debug.xcconfig"; sourceTree = "<group>"; };
 		7A4D352CD337FB3A3BF06240 /* Pods-expobarcodescannerhighlightexample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-expobarcodescannerhighlightexample.release.xcconfig"; path = "Target Support Files/Pods-expobarcodescannerhighlightexample/Pods-expobarcodescannerhighlightexample.release.xcconfig"; sourceTree = "<group>"; };
-		837CD3B28FC74B3ABDAF2A5E /* expobarcodescannerhighlightexample-Bridging-Header.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = "expobarcodescannerhighlightexample-Bridging-Header.h"; path = "expobarcodescannerhighlightexample/expobarcodescannerhighlightexample-Bridging-Header.h"; sourceTree = "<group>"; };
 		AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = expobarcodescannerhighlightexample/SplashScreen.storyboard; sourceTree = "<group>"; };
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
-		BF23272F1179402AB4B06BF1 /* noop-file.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = "noop-file.swift"; path = "expobarcodescannerhighlightexample/noop-file.swift"; sourceTree = "<group>"; };
+		D08D2BD0761C4AF4B3629E45 /* expobarcodescannerhighlightexample-Bridging-Header.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = "expobarcodescannerhighlightexample-Bridging-Header.h"; path = "expobarcodescannerhighlightexample/expobarcodescannerhighlightexample-Bridging-Header.h"; sourceTree = "<group>"; };
+		EA105D05B3784356630CADA2 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = expobarcodescannerhighlightexample/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-expobarcodescannerhighlightexample/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -59,9 +59,9 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */,
-				BF23272F1179402AB4B06BF1 /* noop-file.swift */,
-				837CD3B28FC74B3ABDAF2A5E /* expobarcodescannerhighlightexample-Bridging-Header.h */,
-				156D869AEB34263A296E86B5 /* PrivacyInfo.xcprivacy */,
+				1E7D8B9E7A214DD58695767E /* noop-file.swift */,
+				D08D2BD0761C4AF4B3629E45 /* expobarcodescannerhighlightexample-Bridging-Header.h */,
+				EA105D05B3784356630CADA2 /* PrivacyInfo.xcprivacy */,
 			);
 			name = expobarcodescannerhighlightexample;
 			sourceTree = "<group>";
@@ -147,13 +147,13 @@
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "expobarcodescannerhighlightexample" */;
 			buildPhases = (
 				08A4A3CD28434E44B6B9DE2E /* [CP] Check Pods Manifest.lock */,
-				96402A676D73AF5830AE97CB /* [Expo] Configure project */,
+				E5DC779A4668F38907499CBB /* [Expo] Configure project */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				800E24972A6A228C8D4807E9 /* [CP] Copy Pods Resources */,
-				3616D4265B9FE592C1EF478E /* [CP] Embed Pods Frameworks */,
+				18ACC385E0A60C726A3C3768 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -203,7 +203,7 @@
 				BB2F792D24A3F905000567C9 /* Expo.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */,
-				8CDCBE04795AF172DC9F3955 /* PrivacyInfo.xcprivacy in Resources */,
+				A59298B4751C8B26606B51F8 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -247,7 +247,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		3616D4265B9FE592C1EF478E /* [CP] Embed Pods Frameworks */ = {
+		18ACC385E0A60C726A3C3768 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -297,7 +297,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-expobarcodescannerhighlightexample/Pods-expobarcodescannerhighlightexample-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		96402A676D73AF5830AE97CB /* [Expo] Configure project */ = {
+		E5DC779A4668F38907499CBB /* [Expo] Configure project */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
@@ -326,7 +326,7 @@
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */,
-				EB48CC73620042EF90664A4D /* noop-file.swift in Sources */,
+				9645FF5A56024501B949464D /* noop-file.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

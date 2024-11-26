@@ -14,29 +14,36 @@ public struct BarcodeOverlayView: View {
     let detectedBarcodesDict: Dictionary<String, DetectedBarcode>
     let onBarcodeTapped: (DetectedBarcode) -> Void
     
+    public init(
+        detectedBarcodesDict: Dictionary<String, DetectedBarcode>,
+        onBarcodeTapped: @escaping (DetectedBarcode) -> Void
+    ) {
+        self.detectedBarcodesDict = detectedBarcodesDict
+        self.onBarcodeTapped = onBarcodeTapped
+    }
+    
     public var body: some View {
         GeometryReader { geometry in
             ZStack {
-                ForEach(Array(detectedBarcodesDict), id: \.key) { key, barcode in
-                    Button(action: {
-                        if enableDebugging {
-                            print("Button tapped for barcode: \(barcode.payload)")
+                BarcodeBoxHitAreaView(
+                    geometry: geometry,
+                    barcodes: Array(detectedBarcodesDict),
+                    onTap: onBarcodeTapped,
+                    enableDebugging: enableDebugging
+                )
+                
+                if enableDebugging {
+                    VStack(alignment: .leading) {
+                        Text("Barcodes in view:")
+                            .foregroundColor(.yellow)
+                        ForEach(Array(detectedBarcodesDict), id: \.key) { key, barcode in
+                            Text("\(key): \(barcode.payload)")
+                                .foregroundColor(.yellow)
                         }
-                        onBarcodeTapped(barcode)
-                    }) {
-                        BarcodeBoxView(barcode: barcode, geometry: geometry)
-                            .contentShape(Rectangle()) // Forces hit testing on entire area
                     }
-                    .buttonStyle(PlainButtonStyle())
-                    .onTapGesture {
-                        if enableDebugging {
-                            print("Tap gesture triggered for barcode: \(barcode.payload)")
-                        }
-                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                    .padding()
                 }
-            }
-            .onChange(of: geometry.size) { size in
-                print("Overlay size changed to: \(size)")
             }
         }
     }
