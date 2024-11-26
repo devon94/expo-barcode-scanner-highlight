@@ -28,8 +28,7 @@ public struct BarcodeOverlayView: View {
                 BarcodeBoxHitAreaView(
                     geometry: geometry,
                     barcodes: Array(detectedBarcodesDict),
-                    onTap: onBarcodeTapped,
-                    enableDebugging: enableDebugging
+                    onTap: onBarcodeTapped
                 )
                 
                 if enableDebugging {

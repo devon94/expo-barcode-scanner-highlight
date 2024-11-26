@@ -7,4 +7,5 @@ export type ExpoBarcodeScannerHighlightViewProps = {
   onBarcodesDetected: (event: { nativeEvent: { barcodes: string[] } }) => void;
   style?: StyleProp<ViewStyle>;
   showHighlight?: boolean;
+  lerpingSmoothingFactor?: number;
 };

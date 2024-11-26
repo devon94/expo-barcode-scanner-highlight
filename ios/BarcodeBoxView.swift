@@ -35,17 +35,6 @@ public struct BarcodeBoxView: View {
                     y: paddedRect.midY
                 )
                 .background(Color.clear)
-            
-            // Debug overlay
-            Color.yellow.opacity(0.2)
-                .frame(
-                    width: paddedRect.width,
-                    height: paddedRect.height
-                )
-                .position(
-                    x: paddedRect.midX,
-                    y: paddedRect.midY
-                )
         }
     }
 }

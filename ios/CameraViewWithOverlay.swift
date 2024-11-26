@@ -12,7 +12,6 @@ import Vision
 
 public struct CameraViewWithOverlay: View {
     @ObservedObject var scannerViewModel: ScannerViewModel
-    @State private var showHighlight: Bool = true
 
     public init(scannerViewModel: ScannerViewModel) {
         self.scannerViewModel = scannerViewModel
@@ -23,7 +22,7 @@ public struct CameraViewWithOverlay: View {
             CameraView(scannerViewModel: scannerViewModel)
                 .edgesIgnoringSafeArea(.all)
             
-            if !scannerViewModel.detectedBarcodesDict.isEmpty && showHighlight {
+            if !scannerViewModel.detectedBarcodesDict.isEmpty && scannerViewModel.showHighlight {
                 BarcodeOverlayView(
                     detectedBarcodesDict: scannerViewModel.detectedBarcodesDict,
                     onBarcodeTapped: { barcode in

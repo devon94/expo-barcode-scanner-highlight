@@ -51,12 +51,15 @@ export default function App() {
         style={styles.scanner}
         onBarcodesDetected={onBarcodesDetected}
         onBarcodeTapped={onBarcodeTapped}
+        // TODO: Test if this works
         showHighlight={true}
+        // TODO: Test if this works. Also idk if android can implement this
+        lerpingSmoothingFactor={0.25}
       />
 
       {scannedBarcode !== '' && (
         <Animated.View style={[styles.toastContainer, animatedStyle]}>
-          <BlurView intensity={70} tint="dark" style={styles.blurView}>
+          <BlurView intensity={50} tint="light" style={styles.blurView}>
             <Text style={styles.toastText}>{scannedBarcode}</Text>
           </BlurView>
         </Animated.View>

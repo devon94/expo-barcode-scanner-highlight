@@ -32,12 +32,14 @@ class ExpoBarcodeScannerHighlightView: ExpoView {
     
     var showHighlight: Bool = true {
         didSet {
+            print("ExpoView - showHighlight changed to: \(showHighlight)")
             scannerViewModel.showHighlight = showHighlight
         }
     }
     
     var lerpingSmoothingFactor: CGFloat = 0.3 {
         didSet {
+            print("ExpoView - lerpingSmoothingFactor changed to: \(lerpingSmoothingFactor)")
             scannerViewModel.lerpingSmoothingFactor = lerpingSmoothingFactor
         }
     }

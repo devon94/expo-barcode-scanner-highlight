@@ -26,10 +26,16 @@ public class ScannerViewModel: NSObject, ObservableObject {
     @Published var scannedText = ""
     @Published var isScanning = true
     @Published var detectedBarcodesDict: [String: DetectedBarcode] = [:]
-    @Published var showHighlight: Bool = true
+    @Published var showHighlight: Bool = true {
+        didSet {
+            print("ViewModel - showHighlight changed to: \(showHighlight)")
+            objectWillChange.send()
+        }
+    }
+
     @Published var lerpingSmoothingFactor: CGFloat = 0.3 {
         didSet {
-            // This will trigger updates when the smoothing factor changes
+            print("ViewModel - lerpingSmoothingFactor changed to: \(lerpingSmoothingFactor)")
             objectWillChange.send()
         }
     }
@@ -48,6 +54,10 @@ public class ScannerViewModel: NSObject, ObservableObject {
         _ onBarcodesDetected: (([String: Any]) -> Void)?
     ) {
         self.onBarcodesDetected = onBarcodesDetected
+    }
+
+    public func setShowHighlight(_ showHighlight: Bool) {
+        self.showHighlight = showHighlight
     }
 
     public func setLerpingSmoothingFactor(_ lerpingSmoothingFactor: CGFloat) {
