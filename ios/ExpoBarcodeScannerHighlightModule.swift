@@ -7,19 +7,18 @@ public class ExpoBarcodeScannerHighlightModule: Module {
         View(ExpoBarcodeScannerHighlightView.self) {
             Events("onBarcodesDetected", "onBarcodeTapped")
 
-        }
+            Prop("showHighlight") {
+                (view: ExpoBarcodeScannerHighlightView, showHighlight: Bool?) in
+                view.showHighlight = showHighlight ?? true
+            }
 
-        Prop("showHighlight") {
-            (view: ExpoBarcodeScannerHighlightView, showHighlight: Bool?) in
-            view.showHighlight = showHighlight ?? true
-        }
-
-        Prop("lerpingSmoothingFactor") {
-            (
-                view: ExpoBarcodeScannerHighlightView,
-                lerpingSmoothingFactor: CGFloat?
-            ) in
-            view.lerpingSmoothingFactor = lerpingSmoothingFactor ?? 0.3
+            Prop("lerpingSmoothingFactor") {
+                (
+                    view: ExpoBarcodeScannerHighlightView,
+                    lerpingSmoothingFactor: CGFloat?
+                ) in
+                view.lerpingSmoothingFactor = lerpingSmoothingFactor ?? 0.3
+            }
         }
     }
 }
